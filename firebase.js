@@ -19,7 +19,7 @@ const database = getDatabase(app);
 
 // References to AQI and pollutant data in the Realtime Database
 const aqiRef = ref(database, "sensor/aqi");
-const pm25Ref = ref(database, "sensor/pm2.5");
+const pm25Ref = ref(database, "sensor/pm25");
 const pm10Ref = ref(database, "sensor/pm10");
 const coRef = ref(database, "sensor/co");
 const so2Ref = ref(database, "sensor/so2");
