@@ -161,7 +161,7 @@
         <div class="data-card-container">
             <div class="data-card">
                 <h2>AQI</h2>
-                <span id="aqi">Loading...</span>
+                <span id="aqi">120</span> <!-- Dynamically set the AQI value here -->
                 <div class="tooltip">Air Quality Index (AQI) reflects overall air pollution levels.</div>
             </div>
             <!-- AQI Bar placed next to the AQI box -->
@@ -194,27 +194,35 @@
     <div class="footer">Powered by Firebase Realtime Database</div>
 
     <script>
-        // Sample dynamic AQI value for testing
-        let aqiValue = 20; // Replace this with the real AQI value
+        // Function to update AQI bar based on AQI value
+        function updateAQIBar() {
+            let aqiValue = parseInt(document.getElementById('aqi').textContent); // Get AQI value from the span
+            let aqiBarInner = document.getElementById('aqi-bar-inner');
 
-        // Update AQI value
-        document.getElementById('aqi').textContent = aqiValue;
+            let barWidth = Math.min(aqiValue, 500); // Max width of 100% for 500 AQI
+            aqiBarInner.style.width = barWidth + '%'; // Update bar width
 
-        // Determine AQI bar color and width
-        let aqiBarInner = document.getElementById('aqi-bar-inner');
-
-        let barWidth = Math.min(aqiValue, 500); // Max width of 100% for 500 AQI
-        aqiBarInner.style.width = barWidth + '%';
-
-        if (aqiValue <= 50) {
-            aqiBarInner.classList.add('good');
-        } else if (aqiValue <= 100) {
-            aqiBarInner.classList.add('moderate');
-        } else if (aqiValue <= 200) {
-            aqiBarInner.classList.add('unhealthy');
-        } else {
-            aqiBarInner.classList.add('hazardous');
+            // Apply color classes based on AQI value
+            aqiBarInner.classList.remove('good', 'moderate', 'unhealthy', 'hazardous'); // Reset previous classes
+            if (aqiValue <= 50) {
+                aqiBarInner.classList.add('good');
+            } else if (aqiValue <= 100) {
+                aqiBarInner.classList.add('moderate');
+            } else if (aqiValue <= 200) {
+                aqiBarInner.classList.add('unhealthy');
+            } else {
+                aqiBarInner.classList.add('hazardous');
+            }
         }
+
+        // Call the function to update the AQI bar when the page loads
+        updateAQIBar();
+
+        // For demonstration: Update AQI dynamically
+        setTimeout(() => {
+            document.getElementById('aqi').textContent = 180; // Change AQI value dynamically
+            updateAQIBar(); // Update AQI bar with the new value
+        }, 5000); // Change after 5 seconds for demonstration
     </script>
 </body>
 </html>
